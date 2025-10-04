@@ -1,0 +1,288 @@
+:root {
+  --background-color: #1e1e1e;
+  --panel-background-color: #2a2a2e;
+  --text-color: #f0f0f0;
+  --primary-color: #4a90e2;
+  --border-color: #4a4a50;
+  --input-background: #38383e;
+  --error-color: #e57373;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.main-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+#controls-panel {
+  width: 380px;
+  flex-shrink: 0;
+  background-color: var(--panel-background-color);
+  padding: 24px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#controls-panel h1 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 16px;
+}
+
+#controls-panel h2 {
+  font-size: 1.1rem;
+  margin-top: 0;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+#controls-panel p {
+    font-size: 0.85rem;
+    color: #999;
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+#gallery-container {
+  flex-grow: 1;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+#image-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  width: 100%;
+}
+
+.gallery-item {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--input-background);
+  border: 2px solid var(--border-color);
+  line-height: 0; /* Removes any gap under the image */
+}
+
+#image-gallery img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block; /* Also helps remove gap under the image */
+}
+
+#image-gallery .placeholder, #image-gallery .message {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    color: #888;
+    font-size: 1.2rem;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+}
+
+#image-gallery .message.error {
+    color: var(--error-color);
+}
+
+.download-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(26, 26, 26, 0.8);
+  color: var(--text-color);
+  padding: 6px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.gallery-item:hover .download-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.download-btn:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+
+/* Upload Box Styles */
+.image-upload-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+.upload-box-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.remove-btn {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(26, 26, 26, 0.8);
+    color: var(--text-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1;
+    cursor: pointer;
+    z-index: 10;
+    transition: background-color 0.2s, transform 0.2s;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+.remove-btn:hover {
+    background-color: var(--error-color);
+    transform: scale(1.1);
+}
+
+.upload-box-wrapper.has-image .remove-btn {
+    display: flex;
+}
+
+.upload-box-wrapper.has-image .upload-box span {
+    display: none;
+}
+
+.upload-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s;
+    background-color: var(--input-background);
+}
+
+.upload-box:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-box span {
+    color: #888;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.upload-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+.upload-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+}
+
+/* Form element styles */
+textarea, select {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--input-background);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    resize: vertical;
+}
+
+textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.5);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+#generate-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: auto; /* Pushes button to the bottom */
+}
+
+#generate-button:hover:not(:disabled) {
+    background-color: #5a9ee5;
+}
+
+#generate-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 900px) {
+    .main-container {
+        flex-direction: column;
+    }
+
+    #controls-panel {
+        width: 100%;
+        height: auto;
+        border-bottom: 2px solid var(--border-color);
+    }
+}

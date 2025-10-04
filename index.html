@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imagen API Demo</title>
+    <link rel="stylesheet" href="index.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "@google/genai": "https://esm.sh/@google/genai@1.0.0"
+        }
+      }
+    </script>
+</head>
+<body>
+    <div class="main-container">
+        <aside id="controls-panel">
+            <h1>Imagen Controls</h1>
+            
+            <section>
+                <h2>Character Reference</h2>
+                <p>Upload an image and check the box to use it as a reference.</p>
+                <div class="image-upload-grid">
+                    <!-- Character upload boxes will be dynamically generated -->
+                </div>
+            </section>
+
+            <section>
+                <h2>Background Reference</h2>
+                 <p>Upload an image to use as a background reference.</p>
+                <div class="image-upload-container" id="bg-upload-container">
+                    <!-- Background upload box will be dynamically generated -->
+                </div>
+            </section>
+            
+            <section class="prompt-section">
+                <label for="prompt-input">Prompt</label>
+                <textarea id="prompt-input" rows="8" placeholder="Describe the image you want to create..."></textarea>
+            </section>
+
+            <section class="settings-section">
+                <label for="aspect-ratio-select">Aspect Ratio</label>
+                <select id="aspect-ratio-select">
+                    <option value="1:1" selected>1:1 (Square)</option>
+                    <option value="16:9">16:9 (Widescreen)</option>
+                    <option value="9:16">9:16 (Portrait)</option>
+                    <option value="4:3">4:3 (Standard)</option>
+                    <option value="3:4">3:4 (Tall)</option>
+                </select>
+            </section>
+
+            <button id="generate-button" aria-label="Generate Images">Thực hiện</button>
+        </aside>
+        <main id="gallery-container">
+            <div id="image-gallery">
+                <div class="placeholder">Your generated images will appear here.</div>
+            </div>
+        </main>
+    </div>
+    <script type="module" src="index.tsx"></script>
+</body>
+</html>
